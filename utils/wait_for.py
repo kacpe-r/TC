@@ -14,7 +14,3 @@ def wait_for_element_to_be_clickable(browser, element):
 def wait_for_element_present(browser, element):
     ignored_exceptions = (NoSuchElementException, StaleElementReferenceException)
     WebDriverWait(browser, TIMEOUT, ignored_exceptions=ignored_exceptions).until(EC.presence_of_element_located(element))
-
-# def wait_for_element_present(browser, element):
-#     ignored_exceptions = (NoSuchElementException, StaleElementReferenceException)
-#     WebDriverWait(browser, TIMEOUT, ignored_exceptions=ignored_exceptions).until(EC.presence_of_element_located(element))
