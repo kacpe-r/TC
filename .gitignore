@@ -1,0 +1,6 @@
+__pycache__/
+pages/__pycache__/
+tests/__pycache__/
+utils/__pycache__/
+report.html
+superUser

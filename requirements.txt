@@ -1,0 +1,4 @@
+nose2==0.10.0
+nose2-html-report==0.6.0
+selenium==4.1.0
+webdriver-manager==3.5.2
