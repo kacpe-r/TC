@@ -1,4 +1,3 @@
-# from pages.login_super_user import LoginSuperUserPage
 from pages.login import LoginPage
 from utils.user_names import get_user_by_role
 

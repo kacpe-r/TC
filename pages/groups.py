@@ -33,4 +33,3 @@ class GroupsPage:
             if available_group_name.text == group_name:
                 available_group_name.click()
                 break
-
