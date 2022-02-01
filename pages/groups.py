@@ -1,4 +1,3 @@
-import time
 from selenium.webdriver.common.by import By
 from utils.wait_for import wait_for_element_present, wait_for_element_visible
 
@@ -31,7 +30,6 @@ class GroupsPage:
         group_names = self.browser.find_elements(*self.GROUP_NAMES)
 
         for available_group_name in group_names:
-            time.sleep(0.5)
             if available_group_name.text == group_name:
                 available_group_name.click()
                 break

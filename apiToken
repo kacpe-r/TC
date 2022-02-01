@@ -1,0 +1,7 @@
+Before running the tests you need to have an admin user who has generated token.
+You can generate token as admin on the page: http://localhost:8111/profile.html?item=accessTokens
+Token may look like that:
+eyJ0eXAiOiAiVENWMiJ9.RWdyclJkcVNxS01jY0lrSUtKVHZ4VnptTnRB.ZjZlZTY1YjQtZDY1ZC00NDRhLWE1ZDUtODNlZDhmMWUxNWEz
+Do not remove neither admin user nor it's token.
+
+If you have created token - replace whole content of this file with the token.

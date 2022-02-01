@@ -16,6 +16,7 @@
 
     Step 3. needs to be done every time after starting TC application, hence the SuperUser token in being generated on application boot.
     ***
+4. Create admin user, generate API token and paste it to ./apiToken file.
 
 ## Execution    
  1. go to tests directory: `cd tests`

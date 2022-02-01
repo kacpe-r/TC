@@ -2,15 +2,14 @@ import unittest
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
+from api.users import create_regular_user, delete_user
 from pages.administration import AdministrationPage
 from pages.create_user import CreateUserPage
 from pages.header import HeaderPage
-from pages.login import LoginPage
-from pages.login_super_user import LoginSuperUserPage
-from pages.setup_admin import SetupAdminPage
 from pages.users import UsersPage
+from steps.login_as_super_user import login_as_super_user
+from teamcity_tests.steps.login_as_user import login_as_user
 from utils.environment import BASE_URL
-from utils.super_user import get_super_user
 from utils.user_names import get_user_by_role
 
 class TestBase(unittest.TestCase):
@@ -22,20 +21,13 @@ class TestBase(unittest.TestCase):
 
         self.browser.get(BASE_URL)
 
-        super_user_token = get_super_user()
+        admin = get_user_by_role(is_admin = True)
+        regular = get_user_by_role(is_admin = False)
+        delete_user(admin['login'])
+        delete_user(regular['login'])
 
-        if 'login.html' in self.browser.current_url:
-            login_page = LoginPage(self.browser)
-            login_page.set_password(super_user_token)
-            login_page.click_login_button()
-        elif 'setupAdmin.html' in self.browser.current_url:
-            setup_admin_page = SetupAdminPage(self.browser)
-            setup_admin_page.click_login_as_super_user()
-            login_super_user_page = LoginSuperUserPage(self.browser)
-            login_super_user_page.set_super_user(super_user_token)
-            login_super_user_page.click_login_button()
-        else:
-            raise ValueError('Unhandled page.')
+    def test_create_new_admin(self):
+        login_as_super_user(self.browser)
             
         header_page = HeaderPage(self.browser)
         header_page.click_administration_link()
@@ -44,41 +36,34 @@ class TestBase(unittest.TestCase):
         administration_page.click_users_link()
 
         users_page = UsersPage(self.browser)
-        users_page.remove_all_users()
         users_page.create_admin()
-
-    def test_create_new_admin(self):
         create_user_page = CreateUserPage(self.browser)
-        create_user_page.create_new_account(True)
+        create_user_page.create_new_account(is_admin = True)
 
         header_page = HeaderPage(self.browser)
         header_page.log_out()
 
-        user_data = get_user_by_role(True)
-        login_page = LoginPage(self.browser)
-        login_page.set_username(user_data['login'])
-        login_page.set_password(user_data['password'])
-        login_page.click_login_button()
+        login_as_user(self.browser, is_admin = True)
         
         assert header_page.is_administration_link_displayed() == True
 
 
     def test_create_new_regular_user(self):
-        create_user_page = CreateUserPage(self.browser)
-        create_user_page.create_new_account()
+        regular = get_user_by_role(is_admin = False)
+        create_regular_user(regular['login'])
 
         header_page = HeaderPage(self.browser)
-        header_page.log_out()
 
-        user_data = get_user_by_role(False)
-        login_page = LoginPage(self.browser)
-        login_page.set_username(user_data['login'])
-        login_page.set_password(user_data['password'])
-        login_page.click_login_button()
-        
+        login_as_user(self.browser, is_admin = False)
+
         assert header_page.is_administration_link_displayed() == False
 
     def tearDown(self):
+        admin = get_user_by_role(is_admin = True)
+        regular = get_user_by_role(is_admin = False)
+        delete_user(admin['login'])
+        delete_user(regular['login'])
+
         self.browser.quit()
 
 if __name__ == '__main__':

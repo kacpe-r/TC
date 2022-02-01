@@ -12,7 +12,7 @@ class CreateUserPage:
     def __init__(self, browser):
         self.browser = browser
 
-    def create_new_account(self, is_admin=False):
+    def create_new_account(self, is_admin):
         user_data = get_user_by_role(is_admin)
         wait_for_element_present(self.browser, self.USERNAME_INPUT)
 

@@ -5,13 +5,10 @@ from webdriver_manager.chrome import ChromeDriverManager
 from pages.administration import AdministrationPage
 from pages.create_object import CreateObjectPage
 from pages.header import HeaderPage
-from pages.login import LoginPage
-from pages.login_super_user import LoginSuperUserPage
 from pages.overview import OverviewPage
+from steps.login_as_super_user import login_as_super_user
 from utils.environment import BASE_URL
-from pages.setup_admin import SetupAdminPage
 from utils.project_name import get_project_name
-from utils.super_user import get_super_user
 
 class TestBase(unittest.TestCase):
 
@@ -22,20 +19,7 @@ class TestBase(unittest.TestCase):
 
         self.browser.get(BASE_URL)
 
-        super_user_token = get_super_user()
-
-        if 'login.html' in self.browser.current_url:
-            login_page = LoginPage(self.browser)
-            login_page.set_password(super_user_token)
-            login_page.click_login_button()
-        elif 'setupAdmin.html' in self.browser.current_url:
-            setup_admin_page = SetupAdminPage(self.browser)
-            setup_admin_page.click_login_as_super_user()
-            login_super_user_page = LoginSuperUserPage(self.browser)
-            login_super_user_page.set_super_user(super_user_token)
-            login_super_user_page.click_login_button()
-        else:
-            raise ValueError('Unhandled page.')
+        login_as_super_user(self.browser)
             
     def test_create_new_project(self):
         header_page = HeaderPage(self.browser)
