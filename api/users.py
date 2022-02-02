@@ -1,6 +1,6 @@
 import requests
+from config.environment import BASE_URL
 from utils.api_token import get_api_token
-from utils.environment import BASE_URL
 
 def delete_user(username):
     URL = BASE_URL + f'/app/rest/users/{username}'

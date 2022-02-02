@@ -4,13 +4,13 @@ from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 from api.groups import delete_all_groups, create_group
 from api.users import create_regular_user, delete_user
+from config.environment import BASE_URL
 from pages.administration import AdministrationPage
 from pages.groups import GroupsPage
 from pages.header import HeaderPage
 from pages.profile import ProfilePage
 from steps.login_as_super_user import login_as_super_user
 from steps.login_as_user import login_as_user
-from utils.environment import BASE_URL
 from utils.group_name import get_group_name
 from utils.user_names import get_user_by_role
 
