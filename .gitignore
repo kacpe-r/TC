@@ -1,6 +1,7 @@
 __pycache__/
+config/superUser
+config/token
 pages/__pycache__/
 tests/__pycache__/
 utils/__pycache__/
 report.html
-superUser

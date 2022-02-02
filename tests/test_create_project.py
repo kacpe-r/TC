@@ -2,12 +2,12 @@ import unittest
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
+from config.environment import BASE_URL
 from pages.administration import AdministrationPage
 from pages.create_object import CreateObjectPage
 from pages.header import HeaderPage
 from pages.overview import OverviewPage
 from steps.login_as_super_user import login_as_super_user
-from utils.environment import BASE_URL
 from utils.project_name import get_project_name
 
 class TestBase(unittest.TestCase):

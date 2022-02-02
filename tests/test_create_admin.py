@@ -3,13 +3,13 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 from api.users import create_regular_user, delete_user
+from config.environment import BASE_URL
 from pages.administration import AdministrationPage
 from pages.create_user import CreateUserPage
 from pages.header import HeaderPage
 from pages.users import UsersPage
 from steps.login_as_super_user import login_as_super_user
 from teamcity_tests.steps.login_as_user import login_as_user
-from utils.environment import BASE_URL
 from utils.user_names import get_user_by_role
 
 class TestBase(unittest.TestCase):
